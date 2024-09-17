@@ -27,8 +27,23 @@ public class HomeWork {
      * @return количество узлов от 0 до N, где N позиция на которой первый раз условие вернуло fals
      */
     public <T> int partitionBy(Node<T> list, Predicate<T> pred) {
-        //TODO реализовать метод
-        return 0;
+
+        int size = 0;
+        // Проверим, что условие введено, если нет сразу вернем 0
+        if (pred != null) {
+            while (list != null) {
+                int y = (int) list.getValue();
+                if (pred.test(list.getValue())) {
+                    size++;
+                } else {
+                    // При первой неудаче выходим из цикла и возвращаем полученный размер
+                    break;
+                }
+                list = list.getNext();
+            }
+        }
+
+        return size;
     }
 
     /**
@@ -40,7 +55,23 @@ public class HomeWork {
      * @param <T>
      * @return сам элемент
      */
+
+    // Мы реализовали метод get для списка, можно воспользоваться им
+    public <T> T findNthElementNodeGet(Node<T> list, int n) {
+        return list.get(n);
+    }
+
+    // Реализуем без get через цикл while
     public <T> T findNthElement(Node<T> list, int n) {
-        return null;
+
+        int index = 0;
+        while (list != null) {
+            if (n == index) {
+                return list.getValue();
+            }
+            index++;
+            list = list.getNext();
+        }
+            throw new IllegalArgumentException("invalid index");
     }
 }
